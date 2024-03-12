@@ -202,6 +202,13 @@ static int get_phys_addr(RISCVCPUState *s,
                          target_ulong *ppaddr, target_ulong vaddr,
                          int access)
 {
+    //// Begin Test: Support Global PTE
+    // TODO: Allow UART I/O only for Supervisor Mode
+    if (vaddr >= 0x30000000 && vaddr < 0x40000000) {
+        *ppaddr = vaddr;
+        return 0;
+    }
+    //// End Test: Support Global PTE
     int mode, levels, pte_bits, pte_idx, pte_mask, pte_size_log2, xwr, priv;
     int need_write, vaddr_shift, i, pte_addr_bits;
     target_ulong pte_addr, pte, vaddr_mask, paddr;
