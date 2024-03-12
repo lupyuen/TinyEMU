@@ -186,6 +186,9 @@ PHYS_MEM_READ_WRITE(64, uint64_t)
 
 #define PTE_V_MASK (1 << 0)
 #define PTE_U_MASK (1 << 4)
+//// Begin Test: Support Global PTE
+#define PTE_G_MASK (1 << 5)
+//// End Test: Support Global PTE
 #define PTE_A_MASK (1 << 6)
 #define PTE_D_MASK (1 << 7)
 
