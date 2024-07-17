@@ -295,6 +295,9 @@ static int get_phys_addr(RISCVCPUState *s,
             }
             vaddr_mask = ((target_ulong)1 << vaddr_shift) - 1;
             *ppaddr = (vaddr & vaddr_mask) | (paddr  & ~vaddr_mask);
+            //// Begin Test: Ignore the Upper Bits of Physical Address, due to T-Head MMU Flags
+            *ppaddr &= 0xfffffffffffful; ////
+            //// End Test
             return 0;
         } else {
             pte_addr = paddr;
@@ -1171,6 +1174,7 @@ static void raise_exception2(RISCVCPUState *s, uint32_t cause,
             log_printf("\n");
             printf("raise_exception2: cause=%d, tval=%p, pc=%p\n", cause, (void *)tval, s->pc);////
             dump_regs(s);
+            exit(1);
         }
     }
 #endif
